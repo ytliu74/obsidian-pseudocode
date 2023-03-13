@@ -20,8 +20,6 @@ To use the plugin, simply create a code block in your Obsidian note and add your
 Here is an example:
 
 ```
-Here is a code block example:
-
     ```pcode
     \begin{algorithm}
     \caption{Quicksort}
