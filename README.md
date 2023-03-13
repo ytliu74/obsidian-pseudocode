@@ -49,7 +49,8 @@ Here is an example:
 ```
 
 This will be rendered as:
-![example](assets/example.png)
+
+<img src="assets/example.png" alt="example" width="70%">
 
 ## Installation
 
