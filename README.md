@@ -56,7 +56,7 @@ This will be rendered as:
 
 To install the plugin, download the latest release from the [releases page](https://github.com/yourusername/obsidian-pseudocode/releases) and extract it to your Obsidian plugins folder. Then, enable the plugin in your Obsidian settings.
 
-Or just download it within Obsidian's community plugins.
+~~Or just download it within Obsidian's community plugins.~~ (Pending...)
 
 ## Credits
 
