@@ -11,7 +11,7 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 ### Future Features
 
 - [ ] Syntax highlighting.
-- [ ] Auto-completion inside `pcode` code block.
+- [x] Auto-completion inside `pcode` code block. (Release 1.1.0)
 
 ## Usage
 
