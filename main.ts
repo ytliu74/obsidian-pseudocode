@@ -13,8 +13,6 @@ import {
 
 import * as pseudocode from "pseudocode";
 
-// Remember to rename these classes and interfaces!
-
 interface PseudocodeSettings {
 	indentSize: string;
 	commentDelimiter: string;
@@ -41,17 +39,8 @@ export default class PseudocodePlugin extends Plugin {
 		el: HTMLElement,
 		ctx: any
 	): Promise<any> {
-		// const rawRows: string[] = source.split("\n");
-
-		const katex = el.createEl("script");
-		katex.src =
-			"https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js";
-		katex.integrity = "sha256-F/Xda58SPdcUCr+xhSGz9MA2zQBPb0ASEYKohl8UCHc=";
-		katex.crossOrigin = "anonymous";
-
 		const preEl = el.createEl("pre", { cls: "code", text: source });
 
-		// console.log(el);
 		pseudocode.renderElement(preEl, this.settings);
 	}
 
