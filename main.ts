@@ -221,7 +221,7 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 		const query = context.query;
 
 		const suggestions = this.pseudocodeKeywords.filter((value) =>
-			value.startsWith(query)
+			value.toLowerCase().startsWith(query.toLowerCase())
 		);
 
 		// console.log(suggestions);
