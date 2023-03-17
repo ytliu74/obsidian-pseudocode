@@ -31,6 +31,8 @@ const DEFAULT_SETTINGS: PseudocodeSettings = {
 	captionCount: undefined,
 };
 
+const BLOCK_NAME = "pseudo";
+
 export default class PseudocodePlugin extends Plugin {
 	settings: PseudocodeSettings;
 
@@ -48,7 +50,7 @@ export default class PseudocodePlugin extends Plugin {
 		await this.loadSettings();
 
 		this.registerMarkdownCodeBlockProcessor(
-			"pcode",
+			BLOCK_NAME,
 			this.pseudocodeHandler.bind(this)
 		);
 
@@ -192,14 +194,14 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 		const indexOfLastCodeBlockStart =
 			currentFileToCursor.lastIndexOf("```");
 
-		// check if this is a pcode block
-		const isPcode =
+		// check if this is a pseudocode block
+		const isPseudocode =
 			currentFileToCursor.slice(
 				indexOfLastCodeBlockStart + 3,
-				indexOfLastCodeBlockStart + 8
-			) == "pcode";
+				indexOfLastCodeBlockStart + 3 + BLOCK_NAME.length
+			) == BLOCK_NAME;
 
-		if (!isPcode) return null;
+		if (!isPseudocode) return null;
 
 		// Get last word in current line
 		// const currentLineToCursor = editor
@@ -218,7 +220,7 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 	): string[] | Promise<string[]> {
 		const query = context.query;
 
-		const suggestions = this.pcodeKeywords.filter((value) =>
+		const suggestions = this.pseudocodeKeywords.filter((value) =>
 			value.startsWith(query)
 		);
 
@@ -249,7 +251,7 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 		}
 	}
 
-	private pcodeKeywords: string[] = [
+	private pseudocodeKeywords: string[] = [
 		"\\begin{algorithmic}",
 		"\\begin{algorithm}",
 		"\\end{algorithmic}",
