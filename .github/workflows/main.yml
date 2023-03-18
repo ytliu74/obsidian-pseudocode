@@ -1,0 +1,70 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Check Commit Message
+        id: check_message
+        run: echo ::set-output name=message::$(git log --format=%B -n 1 ${{ github.sha }})
+      - name: Extract Version Number
+        id: extract_version
+        if: startsWith(steps.check_message.outputs.message, 'new release')
+        run: echo ::set-output name=version::$(echo ${{ steps.check_message.outputs.message }} | cut -d' ' -f3)
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Project
+        run: npm run build
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Release Artifacts
+          path: |
+            main.js
+            manifest.json
+            style.css
+      - name: Create Release
+        id: create_release
+        if: steps.extract_version.outputs.version
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ steps.extract_version.outputs.version }}
+          release_name: ${{ steps.extract_version.outputs.version }}
+          body: 'New release'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: Release Artifacts
+      - name: Attach Artifacts to Release
+        uses: actions/upload-release-asset@v1
+        with:
+          asset_path: |
+            ${{ env.ARTIFACTS_PATH }}/main.js
+            ${{ env.ARTIFACTS_PATH }}/manifest.json
+            ${{ env.ARTIFACTS_PATH }}/style.css
+          asset_name: |
+            main.js
+            manifest.json
+            style.css
+          release_id: ${{ steps.create_release.outputs.id }}
+        env:
+          ARTIFACTS_PATH: ${{ github.workspace }}/Release Artifacts
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Output Release Version
+        if: steps.extract_version.outputs.version
+        run: echo 'New Release Version: ${{ steps.extract_version.outputs.version }}'
+        
+        
