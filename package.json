@@ -1,6 +1,6 @@
 {
 	"name": "pseudocode-obsidian",
-	"version": "1.1.0",
+	"version": "1.1.2",
 	"description": "This is an obsidian plugin that helps to render a LaTeX-style pseudocode inside a code block.",
 	"main": "main.js",
 	"scripts": {
