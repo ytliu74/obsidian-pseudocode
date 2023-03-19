@@ -203,11 +203,6 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 
 		if (!isPseudocode) return null;
 
-		// Get last word in current line
-		// const currentLineToCursor = editor
-		// 	.getLine(cursor.line)
-		// 	.slice(0, cursor.ch);
-
 		return {
 			start: { line: cursor.line, ch: currentLineLastWordStart },
 			end: cursor,

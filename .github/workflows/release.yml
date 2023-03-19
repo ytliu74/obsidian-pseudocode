@@ -8,6 +8,8 @@ on:
 jobs:
   create_release:
     if: "contains(github.event.head_commit.message, 'new release')"
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -27,29 +29,16 @@ jobs:
       - name: Get Release Version
         id: release-version
         run: |
-          echo "VER=${{ github.event.head_commit.message }} | cut -d' ' -f3" >> $GITHUB_OUTPUT
+          echo "VER=$(echo ${{ github.event.head_commit.message }} | cut -d' ' -f3)" >> $GITHUB_OUTPUT
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.release-version.outputs.VER }}
-          release_name: ${{ steps.release-version.outputs.VER }}
           body: "New release ${{ steps.release-version.outputs.VER }}"
           draft: false
           prerelease: false
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./
-          asset_name: |
+          files: |
             main.js
             manifest.json
-            style.css
+            styles.css
