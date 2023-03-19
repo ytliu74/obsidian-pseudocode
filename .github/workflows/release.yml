@@ -27,7 +27,7 @@ jobs:
       - name: Get Release Version
         id: release-version
         run: |
-          echo version=${{ steps.commit.outputs.message }} | cut -d' ' -f3 >> $GITHUB_ENV
+          echo "VER=${{ github.event.head_commit.message }} | cut -d' ' -f3" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
@@ -35,9 +35,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.version }}
-          release_name: ${{ env.version }}
-          body: "New release ${{ env.version }}"
+          tag_name: ${{ steps.release-version.outputs.VER }}
+          release_name: ${{ steps.release-version.outputs.VER }}
+          body: "New release ${{ steps.release-version.outputs.VER }}"
           draft: false
           prerelease: false
 
