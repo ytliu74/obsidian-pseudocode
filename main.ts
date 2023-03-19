@@ -224,7 +224,6 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 			value.toLowerCase().startsWith(query.toLowerCase())
 		);
 
-		// console.log(suggestions);
 		return suggestions;
 	}
 
