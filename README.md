@@ -58,6 +58,10 @@ To install the plugin, download the latest release from the [releases page](http
 
 ~~Or just download it within Obsidian's community plugins.~~ (Pending...)
 
+## Known Issues
+
+- [ ] The caption index will increase with each rendering.
+
 ## Credits
 
 This plugin is based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js), a JavaScript library that typesets pseudocode beautifully to HTML. Many thanks to the pseudocode.js team for their great work!
