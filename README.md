@@ -11,16 +11,16 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 ### Future Features
 
 - [ ] Syntax highlighting.
-- [x] Auto-completion inside `pcode` code block. (Release 1.1.0)
+- [x] Auto-completion inside `pseudo` code block. (Release 1.1.0)
 
 ## Usage
 
-To use the plugin, simply create a code block in your Obsidian note and add your pseudocode inside it. Then, add the language specifier `pcode` (short for "pseudocode") to the code block. The plugin will automatically render the pseudocode as LaTeX.
+To use the plugin, simply create a code block in your Obsidian note and add your pseudocode inside it. Then, add the language specifier `pseudo` (short for "pseudocode") to the code block. The plugin will automatically render the pseudocode as LaTeX.
 
 Here is an example:
 
 ```
-    ```pcode
+    ```pseudo
     \begin{algorithm}
     \caption{Quicksort}
     \begin{algorithmic}
