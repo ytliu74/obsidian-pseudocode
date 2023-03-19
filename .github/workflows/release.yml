@@ -8,6 +8,7 @@ on:
 jobs:
   create_release:
     if: "contains(github.event.head_commit.message, 'new release')"
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -27,7 +28,7 @@ jobs:
       - name: Get Release Version
         id: release-version
         run: |
-          echo "VER=${{ github.event.head_commit.message }} | cut -d' ' -f3" >> $GITHUB_OUTPUT
+          echo "VER=$(echo ${{ github.event.head_commit.message }} | cut -d' ' -f3)" >> $GITHUB_OUTPUT
 
       - name: Create Release
         id: create_release
