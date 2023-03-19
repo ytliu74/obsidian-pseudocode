@@ -262,6 +262,8 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 		"\\STATE",
 		"\\RETURN",
 		"\\PRINT",
+		"\\FOR{}",
+		"\\ENDFOR",
 		"\\IF{}",
 		"\\ELIF{}",
 		"\\ENDIF",
