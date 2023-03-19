@@ -60,7 +60,7 @@ To install the plugin, download the latest release from the [releases page](http
 
 ## Known Issues
 
-- [ ] The caption index will increase with each rendering.
+- ~~The caption index will increase with each rendering.~~ (Release 1.1.3)
 
 ## Credits
 
