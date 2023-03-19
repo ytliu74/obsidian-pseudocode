@@ -27,7 +27,7 @@ jobs:
       - name: Get Release Version
         id: release-version
         run: |
-          echo "version=${{ steps.commit.outputs.message }} | cut -d' ' -f3" >> $GITHUB_ENV
+          echo version=${{ steps.commit.outputs.message }} | cut -d' ' -f3 >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
