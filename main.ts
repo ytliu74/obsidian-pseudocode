@@ -5,6 +5,7 @@ import {
 	EditorSuggest,
 	EditorSuggestContext,
 	EditorSuggestTriggerInfo,
+	MarkdownView,
 	Plugin,
 	PluginSettingTab,
 	Setting,
@@ -30,6 +31,9 @@ const DEFAULT_SETTINGS: PseudocodeSettings = {
 	noEnd: false,
 	captionCount: undefined,
 };
+
+const PseudocodeBlockInit =
+	"```pseudo\n\t\\begin{algorithm}\n\t\\caption{Algo Caption}\n\t\\begin{algorithmic}\n\n\t\\end{algorithmic}\n\t\\end{algorithm} \n```";
 
 const BLOCK_NAME = "pseudo";
 
@@ -60,10 +64,14 @@ export default class PseudocodePlugin extends Plugin {
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new PseudocodeSettingTab(this.app, this));
 
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		// this.registerInterval(
-		// 	window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000)
-		// );
+		// Auto-gen pseudocode block command.
+		this.addCommand({
+			id: "pseudocode-in-obs",
+			name: "Insert a new pseudocode block",
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				editor.replaceSelection(PseudocodeBlockInit);
+			},
+		});
 	}
 
 	onunload() {}
