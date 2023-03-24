@@ -47,7 +47,20 @@ export default class PseudocodePlugin extends Plugin {
 	): Promise<any> {
 		const preEl = el.createEl("pre", { cls: "code", text: source });
 
-		pseudocode.renderElement(preEl, this.settings);
+		try {
+			pseudocode.renderElement(preEl, this.settings);
+		} catch (error) {
+			console.log(error);
+			const errorSpan = el.createEl("span", { text: error.message });
+			errorSpan.style.fontFamily = "Arial";
+			errorSpan.style.fontSize = "15px";
+			errorSpan.style.textAlign = "center";
+			errorSpan.style.border = "2px dashed red";
+			errorSpan.style.padding = "7px";
+			errorSpan.style.display = "inline-block";
+			el.empty();
+			el.appendChild(errorSpan);
+		}
 	}
 
 	async onload() {
