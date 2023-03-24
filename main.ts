@@ -211,6 +211,10 @@ class PseudocodeSuggestor extends EditorSuggest<string> {
 		// if there is no word, return null
 		if (currentLineLastWordStart === -1) return null;
 
+		// If is within a LaTeX $$ wrap, return null
+		const currentLineLastMoneyMark = currentLineToCursor.lastIndexOf("$");
+		if (currentLineLastMoneyMark != -1) return null;
+
 		const currentFileToCursor = editor.getRange({ line: 0, ch: 0 }, cursor);
 		const indexOfLastCodeBlockStart =
 			currentFileToCursor.lastIndexOf("```");
