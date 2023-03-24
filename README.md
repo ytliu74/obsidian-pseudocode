@@ -17,7 +17,7 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 
 To use the plugin, simply create a code block in your Obsidian note and add your pseudocode inside it. Then, add the language specifier `pseudo` (short for "pseudocode") to the code block. The plugin will automatically render the pseudocode as LaTeX.
 
-You can also use the command `Pseudocode: Insert a new pseudocode block` to start.
+**Rocommend: use the command `Pseudocode: Insert a new pseudocode block` to start.**
 
 Here is an example:
 
