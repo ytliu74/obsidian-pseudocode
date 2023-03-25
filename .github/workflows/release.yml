@@ -7,7 +7,7 @@ on:
 
 jobs:
   create_release:
-    if: "contains(github.event.head_commit.message, 'new release')"
+    if: contains(github.event.head_commit.message, 'new release')
     permissions:
       contents: write
     runs-on: ubuntu-latest
