@@ -56,7 +56,12 @@ This will be rendered as:
 
 ## Installation
 
-To install the plugin, download the latest release from the [releases page](https://github.com/yourusername/obsidian-pseudocode/releases) and extract it to your Obsidian plugins folder. Then, enable the plugin in your Obsidian settings.
+To install the plugin:
+
+1. Create a folder named `pseudocode-in-obs` in your Obsidian vault plugin folder (which is {Your Vault}/.obsidian/plugins).
+2. Download `main.js`, `manifest.json` and `styles.css` from the [releases page](https://github.com/yaotian-liu/obsidian-pseudocode/releases/latest), to the folder you just created in step 1.
+3. Open your Obsidian, and enable the plugin in "Community Plugins" setting page.
+4. Enjoy.
 
 ~~Or just download it within Obsidian's community plugins.~~ (Pending...)
 
