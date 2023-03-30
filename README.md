@@ -56,18 +56,28 @@ This will be rendered as:
 
 ## Installation
 
-To install the plugin:
+### Use [BRAT](https://github.com/TfTHacker/obsidian42-brat#Quick-Guide-for-using-BRAT)
+
+1. Install **Obsidian-42 BRAT** from the Community Plugins in Obsidian.
+2. Open the command palette and run the command `BRAT: Add a beta plugin for testing`. Input this repo's URL `https://github.com/Yaotian-Liu/obsidian-pseudocode`.
+3. Click on **Add Plugin** -- wait a few seconds and BRAT will tell you what is going on.
+4. After BRAT confirms the installation, in Settings go to the **Community plugins** tab.
+5. Refresh the list, find `Pseudocode` and enable it.
+
+### Manual install
 
 1. Create a folder named `pseudocode-in-obs` in your Obsidian vault plugin folder (which is {Your Vault}/.obsidian/plugins).
 2. Download `main.js`, `manifest.json` and `styles.css` from the [releases page](https://github.com/yaotian-liu/obsidian-pseudocode/releases/latest), to the folder you just created in step 1.
 3. Open your Obsidian, and enable the plugin in "Community Plugins" setting page.
 4. Enjoy.
 
-~~Or just download it within Obsidian's community plugins.~~ (Pending...)
+### Install from the Community Plugins in Obsidian.
 
-## Known Issues
+Pending... You can check the [PR](https://github.com/obsidianmd/obsidian-releases/pull/1756).
 
-- ~~The caption index will increase with each rendering.~~ (Release 1.1.3)
+<!-- ## Known Issues -->
+
+
 
 ## Credits
 
