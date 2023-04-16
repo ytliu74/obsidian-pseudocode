@@ -1424,3 +1424,12 @@ If your plugin does not need CSS, delete this file.
 .ps-root .ps-algorithmic.with-linenum .ps-line.ps-code > span {
 	text-indent: 0;
 }
+
+.error-message {
+	font-family: var(--font-monospace);
+	font-size: 0.875rem;
+	text-align: center;
+	border: 2px dashed red;
+	padding: 7px;
+	display: inline-block;
+  }

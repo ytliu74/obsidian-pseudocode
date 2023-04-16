@@ -52,12 +52,7 @@ export default class PseudocodePlugin extends Plugin {
 		} catch (error) {
 			console.log(error);
 			const errorSpan = el.createEl("span", { text: error.message });
-			errorSpan.style.fontFamily = "Arial";
-			errorSpan.style.fontSize = "15px";
-			errorSpan.style.textAlign = "center";
-			errorSpan.style.border = "2px dashed red";
-			errorSpan.style.padding = "7px";
-			errorSpan.style.display = "inline-block";
+			errorSpan.classList.add("error-message");
 			el.empty();
 			el.appendChild(errorSpan);
 		}
@@ -87,7 +82,7 @@ export default class PseudocodePlugin extends Plugin {
 		});
 	}
 
-	onunload() {}
+	onunload() { }
 
 	async loadSettings() {
 		this.settings = Object.assign(
