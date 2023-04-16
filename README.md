@@ -4,9 +4,9 @@
     - [Future Features](#future-features)
   - [Usage](#usage)
   - [Installation](#installation)
+    - [Install from the Community Plugins in Obsidian.](#install-from-the-community-plugins-in-obsidian)
     - [Use BRAT](#use-brat)
     - [Manual install](#manual-install)
-    - [Install from the Community Plugins in Obsidian.](#install-from-the-community-plugins-in-obsidian)
   - [Credits](#credits)
 
 This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render LaTeX-style pseudocode inside a code block. The plugin is based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js), a JavaScript library that typesets pseudocode beautifully to HTML.
