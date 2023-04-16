@@ -1429,7 +1429,9 @@ If your plugin does not need CSS, delete this file.
 	font-family: var(--font-monospace);
 	font-size: 0.875rem;
 	text-align: center;
-	border: 2px dashed red;
-	padding: 7px;
+	border: none;
+	box-shadow: 0 0 0.4rem 0.1rem #f00;
+	padding: 0.2rem;
+	margin: 1rem 4rem;
 	display: inline-block;
   }

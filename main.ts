@@ -51,7 +51,7 @@ export default class PseudocodePlugin extends Plugin {
 			pseudocode.renderElement(preEl, this.settings);
 		} catch (error) {
 			console.log(error);
-			const errorSpan = el.createEl("span", { text: error.message });
+			const errorSpan = el.createEl("span", { text: "\u274C " + error.message });
 			errorSpan.classList.add("error-message");
 			el.empty();
 			el.appendChild(errorSpan);
