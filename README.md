@@ -65,6 +65,10 @@ This will be rendered as:
 
 ## Installation
 
+### Install from the Community Plugins in Obsidian.
+
+:tada: The Pseudocode plugin is now available in the Community Plugins section of Obsidian. To install it, simply search for **Pseudocode** and click on the installation button.
+
 ### Use [BRAT](https://github.com/TfTHacker/obsidian42-brat#Quick-Guide-for-using-BRAT)
 
 1. Install **Obsidian-42 BRAT** from the Community Plugins in Obsidian.
@@ -79,10 +83,6 @@ This will be rendered as:
 2. Download `main.js`, `manifest.json` and `styles.css` from the [releases page](https://github.com/yaotian-liu/obsidian-pseudocode/releases/latest), to the folder you just created in step 1.
 3. Open your Obsidian, and enable the plugin in "Community Plugins" setting page.
 4. Enjoy.
-
-### Install from the Community Plugins in Obsidian.
-
-Pending... You can check the [PR](https://github.com/obsidianmd/obsidian-releases/pull/1756).
 
 <!-- ## Known Issues -->
 
