@@ -1,12 +1,13 @@
 # Obsidian-Pseudocode
-- [Features](#features)
-	- [Future Features](#future-features)
-- [Usage](#usage)
-- [Installation](#installation)
-	- [Install from the Community Plugins in Obsidian.](#install-from-the-community-plugins-in-obsidian)
-	- [Use BRAT](#use-brat)
-	- [Manual install](#manual-install)
-- [Credits](#credits)
+- [Obsidian-Pseudocode](#obsidian-pseudocode)
+  - [Features](#features)
+    - [Future Features](#future-features)
+  - [Usage](#usage)
+  - [Installation](#installation)
+    - [Install from the Community Plugins in Obsidian.](#install-from-the-community-plugins-in-obsidian)
+    - [Use BRAT](#use-brat)
+    - [Manual install](#manual-install)
+  - [Credits](#credits)
 
 This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render LaTeX-style pseudocode inside a code block. The plugin is based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js), a JavaScript library that typesets pseudocode beautifully to HTML.
 
@@ -18,6 +19,7 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 
 ### Future Features
 
+- [ ] Generate a LaTeX file that can be compiled, including any required additional macros.
 - [ ] Syntax highlighting.
 - [x] Auto-completion inside `pseudo` code block. (Release 1.1.0)
 
@@ -34,25 +36,25 @@ Here is an example:
     \begin{algorithm}
     \caption{Quicksort}
     \begin{algorithmic}
-      \PROCEDURE{Quicksort}{$A, p, r$}
-        \IF{$p < r$}
-          \STATE $q = $ \CALL{Partition}{$A, p, r$}
-          \STATE \CALL{Quicksort}{$A, p, q - 1$}
-          \STATE \CALL{Quicksort}{$A, q + 1, r$}
-        \ENDIF
-      \ENDPROCEDURE
-      \PROCEDURE{Partition}{$A, p, r$}
-        \STATE $x = A[r]$
-        \STATE $i = p - 1$
-        \FOR{$j = p$ \TO $r - 1$}
-          \IF{$A[j] < x$}
-            \STATE $i = i + 1$
-            \STATE exchange
+      \Procedure{Quicksort}{$A, p, r$}
+        \If{$p < r$}
+          \State $q \gets $ \Call{Partition}{$A, p, r$}
+          \State \Call{Quicksort}{$A, p, q - 1$}
+          \State \Call{Quicksort}{$A, q + 1, r$}
+        \EndIf
+      \EndProcedure
+      \Procedure{Partition}{$A, p, r$}
+        \State $x \gets A[r]$
+        \State $i \gets p - 1$
+        \For{$j \gets p$ \To $r - 1$}
+          \If{$A[j] < x$}
+            \State $i \gets i + 1$
+            \State exchange
             $A[i]$ with $A[j]$
-          \ENDIF
-        \STATE exchange $A[i]$ with $A[r]$
-        \ENDFOR
-      \ENDPROCEDURE
+          \EndIf
+        \State exchange $A[i]$ with $A[r]$
+        \EndFor
+      \EndProcedure
       \end{algorithmic}
     \end{algorithm}
     ```
@@ -60,7 +62,9 @@ Here is an example:
 
 This will be rendered as:
 
+<div align="center">
 <img src="assets/example.png" alt="example" width="70%">
+</div>
 
 ## Installation
 
@@ -84,8 +88,6 @@ This will be rendered as:
 4. Enjoy.
 
 <!-- ## Known Issues -->
-
-
 
 ## Credits
 
