@@ -62,7 +62,7 @@ export default class PseudocodePlugin extends Plugin {
 		const preEl = blockDiv.createEl("pre", { cls: "code", text: source });
 
 		try {
-			pseudocode.renderElement(preEl, this.settings);
+			pseudocode.renderElement(preEl, this.settings.jsSettings);
 		} catch (error) {
 			console.log(error);
 			const errorSpan = blockDiv.createEl("span", { text: "\u274C " + error.message });
