@@ -14,7 +14,8 @@ import {
 
 import * as pseudocode from "pseudocode";
 
-interface PseudocodeSettings {
+// This is the setting for pseudocode.js
+interface PseudocodeJsSettings {
 	indentSize: string;
 	commentDelimiter: string;
 	lineNumber: boolean;
@@ -23,13 +24,22 @@ interface PseudocodeSettings {
 	captionCount: undefined;
 }
 
+// Setting for this plugin
+interface PseudocodeSettings {
+	blockSize: number;
+	jsSettings: PseudocodeJsSettings;
+}
+
 const DEFAULT_SETTINGS: PseudocodeSettings = {
-	indentSize: "1.2em",
-	commentDelimiter: "//",
-	lineNumber: false,
-	lineNumberPunc: ":",
-	noEnd: false,
-	captionCount: undefined,
+	blockSize: 99,
+	jsSettings: {
+		indentSize: "1.2em",
+		commentDelimiter: "//",
+		lineNumber: false,
+		lineNumberPunc: ":",
+		noEnd: false,
+		captionCount: undefined,
+	}
 };
 
 const PseudocodeBlockInit =
@@ -45,16 +55,20 @@ export default class PseudocodePlugin extends Plugin {
 		el: HTMLElement,
 		ctx: any
 	): Promise<any> {
-		const preEl = el.createEl("pre", { cls: "code", text: source });
+		const blockDiv = el.createDiv({ cls: "pseudocode-block" });
+		const blockWidth = this.settings.blockSize;
+		blockDiv.style.width = `${blockWidth}em`;
+
+		const preEl = blockDiv.createEl("pre", { cls: "code", text: source });
 
 		try {
 			pseudocode.renderElement(preEl, this.settings);
 		} catch (error) {
 			console.log(error);
-			const errorSpan = el.createEl("span", { text: "\u274C " + error.message });
+			const errorSpan = blockDiv.createEl("span", { text: "\u274C " + error.message });
 			errorSpan.classList.add("error-message");
-			el.empty();
-			el.appendChild(errorSpan);
+			blockDiv.empty();
+			blockDiv.appendChild(errorSpan);
 		}
 	}
 
@@ -112,6 +126,23 @@ class PseudocodeSettingTab extends PluginSettingTab {
 
 		containerEl.createEl("h1", { text: "Pseudocode Plugin Settings" });
 
+		// Instantiate Block Size setting
+		new Setting(containerEl)
+			.setName("Block Size")
+			.setDesc(
+				"The width of the pseudocode block. The unit is 'em'." +
+				" The default value is 99, which will work as the max width of the editor." +
+				" '30' looks good for me."
+			)
+			.addText((text) =>
+				text
+					.setValue(this.plugin.settings.blockSize.toString())
+					.onChange(async (value) => {
+						this.plugin.settings.blockSize = Number(value);
+						await this.plugin.saveSettings();
+					})
+			);
+
 		// Instantiate Indent Size setting
 		new Setting(containerEl)
 			.setName("Indent Size")
@@ -120,9 +151,9 @@ class PseudocodeSettingTab extends PluginSettingTab {
 			)
 			.addText((text) =>
 				text
-					.setValue(this.plugin.settings.indentSize)
+					.setValue(this.plugin.settings.jsSettings.indentSize)
 					.onChange(async (value) => {
-						this.plugin.settings.indentSize = value;
+						this.plugin.settings.jsSettings.indentSize = value;
 						await this.plugin.saveSettings();
 					})
 			);
@@ -133,9 +164,9 @@ class PseudocodeSettingTab extends PluginSettingTab {
 			.setDesc("The string used to indicate a comment in the pseudocode.")
 			.addText((text) =>
 				text
-					.setValue(this.plugin.settings.commentDelimiter)
+					.setValue(this.plugin.settings.jsSettings.commentDelimiter)
 					.onChange(async (value) => {
-						this.plugin.settings.commentDelimiter = value;
+						this.plugin.settings.jsSettings.commentDelimiter = value;
 						await this.plugin.saveSettings();
 					})
 			);
@@ -146,9 +177,9 @@ class PseudocodeSettingTab extends PluginSettingTab {
 			.setDesc("Whether line numbering is enabled.")
 			.addToggle((toggle) =>
 				toggle
-					.setValue(this.plugin.settings.lineNumber)
+					.setValue(this.plugin.settings.jsSettings.lineNumber)
 					.onChange(async (value) => {
-						this.plugin.settings.lineNumber = value;
+						this.plugin.settings.jsSettings.lineNumber = value;
 						await this.plugin.saveSettings();
 					})
 			);
@@ -161,9 +192,9 @@ class PseudocodeSettingTab extends PluginSettingTab {
 			)
 			.addText((text) =>
 				text
-					.setValue(this.plugin.settings.lineNumberPunc)
+					.setValue(this.plugin.settings.jsSettings.lineNumberPunc)
 					.onChange(async (value) => {
-						this.plugin.settings.lineNumberPunc = value;
+						this.plugin.settings.jsSettings.lineNumberPunc = value;
 						await this.plugin.saveSettings();
 					})
 			);
@@ -176,9 +207,9 @@ class PseudocodeSettingTab extends PluginSettingTab {
 			)
 			.addToggle((toggle) =>
 				toggle
-					.setValue(this.plugin.settings.noEnd)
+					.setValue(this.plugin.settings.jsSettings.noEnd)
 					.onChange(async (value) => {
-						this.plugin.settings.noEnd = value;
+						this.plugin.settings.jsSettings.noEnd = value;
 						await this.plugin.saveSettings();
 					})
 			);

@@ -1434,4 +1434,11 @@ If your plugin does not need CSS, delete this file.
 	padding: 0.2rem;
 	margin: 1rem 4rem;
 	display: inline-block;
-  }
+}
+
+.pseudocode-block {
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+}
+  
