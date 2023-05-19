@@ -73,6 +73,8 @@ This will be rendered as:
 
 You can use a `.sty` file (actually the suffix does not matter) to customize with some macros. The plugin will locate the file according to the setting. The default path is `preamble.sty`. Currently supported macros can be found at [this link](https://katex.org/docs/supported.html#macros). More macros will be supported in the future.
 
+Please reload the plugin after you change the preamble file.
+
 ## Installation
 
 ### Install from the Community Plugins in Obsidian.
