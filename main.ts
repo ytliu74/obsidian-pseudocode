@@ -10,9 +10,11 @@ import {
 	PluginSettingTab,
 	Setting,
 	TFile,
+	Notice,
 } from "obsidian";
 
 import * as pseudocode from "pseudocode";
+import * as katex from "katex";
 
 // This is the setting for pseudocode.js
 interface PseudocodeJsSettings {
@@ -27,11 +29,13 @@ interface PseudocodeJsSettings {
 // Setting for this plugin
 interface PseudocodeSettings {
 	blockSize: number;
+	preamblePath: string;
 	jsSettings: PseudocodeJsSettings;
 }
 
 const DEFAULT_SETTINGS: PseudocodeSettings = {
 	blockSize: 99,
+	preamblePath: "preamble.sty",
 	jsSettings: {
 		indentSize: "1.2em",
 		commentDelimiter: "//",
@@ -43,12 +47,16 @@ const DEFAULT_SETTINGS: PseudocodeSettings = {
 };
 
 const PseudocodeBlockInit =
-	"```pseudo\n\t\\begin{algorithm}\n\t\\caption{Algo Caption}\n\t\\begin{algorithmic}\n\n\t\\end{algorithmic}\n\t\\end{algorithm} \n```";
+	"```pseudo\n" +
+	"\t\\begin{algorithm}\n\t\\caption{Algo Caption}\n\t\\begin{algorithmic}" +
+	"\n\n\t\\end{algorithmic}\n\t\\end{algorithm}" +
+	"\n```";
 
 const BLOCK_NAME = "pseudo";
 
 export default class PseudocodePlugin extends Plugin {
 	settings: PseudocodeSettings;
+	preamble: string;
 
 	async pseudocodeHandler(
 		source: string,
@@ -58,6 +66,13 @@ export default class PseudocodePlugin extends Plugin {
 		const blockDiv = el.createDiv({ cls: "pseudocode-block" });
 		const blockWidth = this.settings.blockSize;
 		blockDiv.style.width = `${blockWidth}em`;
+
+		// find all $ enclosements in source, and add the preamble.
+		// TODO: Might be able to optimize.
+		const mathRegex = /\$(.*?)\$/g;
+		source = source.replace(mathRegex, (match, group1) => {
+			return '$' + this.preamble + group1 + '$';
+		});
 
 		const preEl = blockDiv.createEl("pre", { cls: "code", text: source });
 
@@ -74,6 +89,7 @@ export default class PseudocodePlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings();
+		await this.loadPreamble();
 
 		this.registerMarkdownCodeBlockProcessor(
 			BLOCK_NAME,
@@ -97,6 +113,30 @@ export default class PseudocodePlugin extends Plugin {
 	}
 
 	onunload() { }
+
+	async loadPreamble() {
+		try { this.preamble = await this.app.vault.adapter.read(this.settings.preamblePath); }
+		catch (error) {
+			console.log(error);
+			// Extract the search path from the error message.
+			const searchPath = error.message.match(/'(.*?)'/g)[0];
+			new Notice("Pseudocode Plugin: Preamble file not found at " + searchPath + ".");
+			this.preamble = "";
+			return;
+		}
+
+		try {
+			katex.renderToString(this.preamble);
+			console.log("Preamble file loaded.");
+			new Notice("Pseudocode Plugin: Preamble file loaded.");
+		}
+		catch (error) {
+			console.log(error);
+			new Notice("Pseudocode Plugin: Preamble file contains invalid LaTeX. " +
+				"Please refer to console for details.");
+			this.preamble = "";
+		}
+	}
 
 	async loadSettings() {
 		this.settings = Object.assign(
@@ -139,6 +179,24 @@ class PseudocodeSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.blockSize.toString())
 					.onChange(async (value) => {
 						this.plugin.settings.blockSize = Number(value);
+						await this.plugin.saveSettings();
+					})
+			);
+
+		// Instantiate Preamble Path setting
+		new Setting(containerEl)
+			.setName("Preamble Path")
+			.setDesc(
+				"The path to the preamble file. The preamble file is a .tex file that contains" +
+				" the preamble of the LaTeX document. This is useful if you want to use custom" +
+				" packages or commands in your pseudocode."
+			)
+			.addText((text) =>
+				text
+					// .setValue(this.plugin.settings.preamblePath)
+					.setValue(this.plugin.settings.preamblePath)
+					.onChange(async (value) => {
+						this.plugin.settings.preamblePath = value;
 						await this.plugin.saveSettings();
 					})
 			);
