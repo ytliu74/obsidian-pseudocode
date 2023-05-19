@@ -187,9 +187,7 @@ class PseudocodeSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName("Preamble Path")
 			.setDesc(
-				"The path to the preamble file. The preamble file is a .tex file that contains" +
-				" the preamble of the LaTeX document. This is useful if you want to use custom" +
-				" packages or commands in your pseudocode."
+				"The path to the preamble file. The path is relative to the vault root."
 			)
 			.addText((text) =>
 				text
