@@ -3,6 +3,7 @@
   - [Features](#features)
     - [Future Features](#future-features)
   - [Usage](#usage)
+    - [Preamble style customization](#preamble-style-customization)
   - [Installation](#installation)
     - [Install from the Community Plugins in Obsidian.](#install-from-the-community-plugins-in-obsidian)
     - [Use BRAT](#use-brat)
@@ -16,12 +17,14 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 - Intuitive grammar: The plugin takes a LaTeX-style input that supports the algorithmic constructs from LaTeX's algorithm packages. With or without LaTeX experience, a user should find the grammar fairly intuitive.
 - Print quality: The HTML output produced by the plugin is (almost) identical with the pretty algorithms printed on publications that are typeset by LaTeX.
 - Math formula support: Inserting math formulas in the pseudocode is as easy as LaTeX. Just enclose math expression in `$...$` or `\(...\)`.
+- Auto-completion inside `pseudo` code block. (Release 1.1.0)
+- Preamble style (macros) customization. (Release 1.2.0)
 
 ### Future Features
 
+- [ ] More macros support.
 - [ ] Generate a LaTeX file that can be compiled, including any required additional macros.
 - [ ] Syntax highlighting.
-- [x] Auto-completion inside `pseudo` code block. (Release 1.1.0)
 
 ## Usage
 
@@ -65,6 +68,10 @@ This will be rendered as:
 <div align="center">
 <img src="assets/example.png" alt="example" width="70%">
 </div>
+
+### Preamble style customization
+
+You can use a `.sty` file (actually the suffix does not matter) to customize with some macros. The plugin will locate the file according to the setting. The default path is `preamble.sty`. Currently supported macros can be found at [this link](https://katex.org/docs/supported.html#macros). More macros will be supported in the future.
 
 ## Installation
 
