@@ -30,12 +30,14 @@ interface PseudocodeJsSettings {
 interface PseudocodeSettings {
 	blockSize: number;
 	preamblePath: string;
+	preambleLoadedNotice: boolean;
 	jsSettings: PseudocodeJsSettings;
 }
 
 const DEFAULT_SETTINGS: PseudocodeSettings = {
 	blockSize: 99,
 	preamblePath: "preamble.sty",
+	preambleLoadedNotice: false,
 	jsSettings: {
 		indentSize: "1.2em",
 		commentDelimiter: "//",
@@ -128,7 +130,9 @@ export default class PseudocodePlugin extends Plugin {
 		try {
 			katex.renderToString(this.preamble);
 			console.log("Preamble file loaded.");
-			new Notice("Pseudocode Plugin: Preamble file loaded.");
+			if (this.settings.preambleLoadedNotice) {
+				new Notice("Pseudocode Plugin: Preamble file loaded.");
+			}
 		}
 		catch (error) {
 			console.log(error);
@@ -166,6 +170,8 @@ class PseudocodeSettingTab extends PluginSettingTab {
 
 		containerEl.createEl("h1", { text: "Pseudocode Plugin Settings" });
 
+		containerEl.createEl("h2", { text: "Render Behevior" });
+
 		// Instantiate Block Size setting
 		new Setting(containerEl)
 			.setName("Block Size")
@@ -179,22 +185,6 @@ class PseudocodeSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.blockSize.toString())
 					.onChange(async (value) => {
 						this.plugin.settings.blockSize = Number(value);
-						await this.plugin.saveSettings();
-					})
-			);
-
-		// Instantiate Preamble Path setting
-		new Setting(containerEl)
-			.setName("Preamble Path")
-			.setDesc(
-				"The path to the preamble file. The path is relative to the vault root."
-			)
-			.addText((text) =>
-				text
-					// .setValue(this.plugin.settings.preamblePath)
-					.setValue(this.plugin.settings.preamblePath)
-					.onChange(async (value) => {
-						this.plugin.settings.preamblePath = value;
 						await this.plugin.saveSettings();
 					})
 			);
@@ -266,6 +256,37 @@ class PseudocodeSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.jsSettings.noEnd)
 					.onChange(async (value) => {
 						this.plugin.settings.jsSettings.noEnd = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
+		containerEl.createEl("h2", { text: "Preamble Settings" });
+
+		// Instantiate Preamble Path setting
+		new Setting(containerEl)
+			.setName("Preamble Path")
+			.setDesc(
+				"The path to the preamble file. The path is relative to the vault root."
+			)
+			.addText((text) =>
+				text
+					// .setValue(this.plugin.settings.preamblePath)
+					.setValue(this.plugin.settings.preamblePath)
+					.onChange(async (value) => {
+						this.plugin.settings.preamblePath = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
+		// Instantiate Preamble Load Sign setting
+		new Setting(containerEl)
+			.setName("Preamble Loaded Notice")
+			.setDesc("Whether to show a notice everytime the preamble is loaded.")
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.preambleLoadedNotice)
+					.onChange(async (value) => {
+						this.plugin.settings.preambleLoadedNotice = value;
 						await this.plugin.saveSettings();
 					})
 			);
