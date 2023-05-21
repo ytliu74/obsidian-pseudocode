@@ -8,9 +8,12 @@ import {
 	PseudocodeBlockInit,
 	BLOCK_NAME,
 } from "src/setting";
+import {
+	translateUnsupportedMacrosPerf,
+	checkTranslatedMacros,
+} from "src/latex_translator";
 
 import * as pseudocode from "pseudocode";
-import * as katex from "katex";
 
 export default class PseudocodePlugin extends Plugin {
 	settings: PseudocodeSettings;
@@ -93,8 +96,12 @@ export default class PseudocodePlugin extends Plugin {
 		}
 
 		try {
-			katex.renderToString(this.preamble);
-			console.log("Preamble file loaded.");
+			this.preamble = translateUnsupportedMacrosPerf(this.preamble);
+			this.preamble = checkTranslatedMacros(this.preamble);
+			console.log("Loaded preamble:\n" + this.preamble);
+			console.log(
+				"Preamble file loaded. You can check the detail in console."
+			);
 			if (this.settings.preambleLoadedNotice) {
 				new Notice("Pseudocode Plugin: Preamble file loaded.");
 			}
