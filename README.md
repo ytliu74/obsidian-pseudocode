@@ -22,7 +22,6 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 
 ### Future Features
 
-- [ ] More macros support.
 - [ ] Generate a LaTeX file that can be compiled, including any required additional macros.
 - [ ] Syntax highlighting.
 
@@ -71,7 +70,11 @@ This will be rendered as:
 
 ### Preamble style customization
 
-You can use a `.sty` file (actually the suffix does not matter) to customize with some macros. The plugin will locate the file according to the setting. The default path is `preamble.sty`. Currently supported macros can be found at [this link](https://katex.org/docs/supported.html#macros). More macros will be supported in the future.
+You can use a `.sty` file (actually the suffix does not matter) to customize with some macros. The plugin will locate the file according to the setting. The default path is `preamble.sty`. Currently supported macros can be found at [this link](https://katex.org/docs/supported.html#macros) and below(might not be fully supported):
+
+1. `\DeclarePairedDelimiter`
+2. `\DeclareMathOperator*`
+3. `\DeclareMathOperator`
 
 Please reload the plugin after you change the preamble file.
 
