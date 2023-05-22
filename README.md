@@ -3,7 +3,9 @@
   - [Features](#features)
     - [Future Features](#future-features)
   - [Usage](#usage)
+    - [Basic](#basic)
     - [Preamble style customization](#preamble-style-customization)
+    - [Export to a compilable LaTeX file](#export-to-a-compilable-latex-file)
   - [Installation](#installation)
     - [Install from the Community Plugins in Obsidian.](#install-from-the-community-plugins-in-obsidian)
     - [Use BRAT](#use-brat)
@@ -18,14 +20,16 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 - Print quality: The HTML output produced by the plugin is (almost) identical with the pretty algorithms printed on publications that are typeset by LaTeX.
 - Math formula support: Inserting math formulas in the pseudocode is as easy as LaTeX. Just enclose math expression in `$...$` or `\(...\)`.
 - Auto-completion inside `pseudo` code block. (Release 1.1.0)
-- Preamble style (macros) customization. (Release 1.2.0)
+- [Preamble style (macros) customization.](#preamble-style-customization) (Release 1.2.0)
+- [Export a LaTeX file that can be compiled, including any required additional macros.](#export-to-a-compilable-latex-file) (Release 1.3.0)
 
 ### Future Features
 
-- [ ] Generate a LaTeX file that can be compiled, including any required additional macros.
 - [ ] Syntax highlighting.
 
 ## Usage
+
+### Basic
 
 To use the plugin, simply create a code block in your Obsidian note and add your pseudocode inside it. Then, add the language specifier `pseudo` (short for "pseudocode") to the code block. The plugin will automatically render the pseudocode as LaTeX.
 
@@ -77,6 +81,11 @@ You can use a `.sty` file (actually the suffix does not matter) to customize wit
 3. `\DeclareMathOperator`
 
 Please reload the plugin after you change the preamble file.
+
+### Export to a compilable LaTeX file
+
+You can easily export a compilable LaTeX file by clicking the `Export to clipboard` button at the bottom right corner for each pseudocode block. The plugin will automatically generate a compilable LaTeX file, including any required additional macros, to your clipboard.
+
 
 ## Installation
 
