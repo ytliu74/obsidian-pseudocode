@@ -7,9 +7,6 @@
     - [Preamble style customization](#preamble-style-customization)
     - [Export to a compilable LaTeX file](#export-to-a-compilable-latex-file)
   - [Installation](#installation)
-    - [Install from the Community Plugins in Obsidian.](#install-from-the-community-plugins-in-obsidian)
-    - [Use BRAT](#use-brat)
-    - [Manual install](#manual-install)
   - [Credits](#credits)
 
 This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render LaTeX-style pseudocode inside a code block. The plugin is based on [pseudocode.js](https://github.com/SaswatPadhi/pseudocode.js), a JavaScript library that typesets pseudocode beautifully to HTML.
@@ -89,11 +86,11 @@ You can easily export a compilable LaTeX file by clicking the `Export to clipboa
 
 ## Installation
 
-### Install from the Community Plugins in Obsidian.
+<!-- ### Install from the Community Plugins in Obsidian. -->
 
 :tada: The Pseudocode plugin is now available in the Community Plugins section of Obsidian. To install it, simply search for **Pseudocode** and click on the installation button.
 
-### Use [BRAT](https://github.com/TfTHacker/obsidian42-brat#Quick-Guide-for-using-BRAT)
+<!-- ### Use [BRAT](https://github.com/TfTHacker/obsidian42-brat#Quick-Guide-for-using-BRAT)
 
 1. Install **Obsidian-42 BRAT** from the Community Plugins in Obsidian.
 2. Open the command palette and run the command `BRAT: Add a beta plugin for testing`. Input this repo's URL `https://github.com/Yaotian-Liu/obsidian-pseudocode`.
@@ -106,7 +103,7 @@ You can easily export a compilable LaTeX file by clicking the `Export to clipboa
 1. Create a folder named `pseudocode-in-obs` in your Obsidian vault plugin folder (which is {Your Vault}/.obsidian/plugins).
 2. Download `main.js`, `manifest.json` and `styles.css` from the [releases page](https://github.com/yaotian-liu/obsidian-pseudocode/releases/latest), to the folder you just created in step 1.
 3. Open your Obsidian, and enable the plugin in "Community Plugins" setting page.
-4. Enjoy.
+4. Enjoy. -->
 
 <!-- ## Known Issues -->
 
