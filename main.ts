@@ -12,6 +12,7 @@ import {
 	translateUnsupportedMacrosPerf,
 	checkTranslatedMacros,
 } from "src/latex_translator";
+import { createExportButton } from "src/export_button";
 
 import * as pseudocode from "pseudocode";
 
@@ -31,14 +32,15 @@ export default class PseudocodePlugin extends Plugin {
 		// find all $ enclosements in source, and add the preamble.
 		// TODO: Might be able to optimize.
 		const mathRegex = /\$(.*?)\$/g;
-		source = source.replace(mathRegex, (match, group1) => {
+		const withPreamble = source.replace(mathRegex, (match, group1) => {
 			return "$" + this.preamble + group1 + "$";
 		});
 
-		const preEl = blockDiv.createEl("pre", { cls: "code", text: source });
+		const preEl = blockDiv.createEl("pre", { cls: "code", text: withPreamble });
 
 		try {
 			pseudocode.renderElement(preEl, this.settings.jsSettings);
+			createExportButton(blockDiv, source);
 		} catch (error) {
 			console.log(error);
 			const errorSpan = blockDiv.createEl("span", {

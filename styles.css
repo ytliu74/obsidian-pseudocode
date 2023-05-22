@@ -1437,8 +1437,19 @@ If your plugin does not need CSS, delete this file.
 }
 
 .pseudocode-block {
+	position: relative;
     max-width: 100%;
     box-sizing: border-box;
     margin: auto;
 }
-  
+
+.hover-button {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	display: none;
+}
+
+.pseudocode-block:hover .hover-button {
+	display: block;
+}
