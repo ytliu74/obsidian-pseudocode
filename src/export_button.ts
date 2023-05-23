@@ -53,5 +53,7 @@ const MACROS =
 	"\\newcommand{\\DownTo}{\\textbf{downto~}}\n" +
 	"\\newcommand{\\True}{\\textbf{true~}}\n" +
 	"\\newcommand{\\False}{\\textbf{false~}}\n" +
-	"\\newcommand{\\Input}{\\textbf{input~}}\n" +
-	"\\newcommand{\\Output}{\\textbf{output~}}\n";
+	"\\newcommand{\\Input}{\\item[\\textbf{Input:}]}\n" +
+	"\\newcommand{\\Output}{\\item[\\textbf{Output:}]}\n" +
+	"\\renewcommand{\\Return}{\\State \\textbf{return~}}\n" +
+	"\\newcommand{\\Print}{\\State \\textbf{print~}}\n";
