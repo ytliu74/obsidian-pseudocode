@@ -1,8 +1,4 @@
-import {
-	App,
-	PluginSettingTab,
-	Setting,
-} from "obsidian";
+import { App, PluginSettingTab, Setting } from "obsidian";
 
 import PseudocodePlugin from "main";
 
@@ -28,8 +24,8 @@ export class PseudocodeSettingTab extends PluginSettingTab {
 			.setName("Block Size")
 			.setDesc(
 				"The width of the pseudocode block. The unit is 'em'." +
-				" The default value is 99, which will work as the max width of the editor." +
-				" '30' looks good for me."
+					" The default value is 99, which will work as the max width of the editor." +
+					" '30' looks good for me."
 			)
 			.addText((text) =>
 				text
@@ -63,7 +59,8 @@ export class PseudocodeSettingTab extends PluginSettingTab {
 				text
 					.setValue(this.plugin.settings.jsSettings.commentDelimiter)
 					.onChange(async (value) => {
-						this.plugin.settings.jsSettings.commentDelimiter = value;
+						this.plugin.settings.jsSettings.commentDelimiter =
+							value;
 						await this.plugin.saveSettings();
 					})
 			);
@@ -111,6 +108,21 @@ export class PseudocodeSettingTab extends PluginSettingTab {
 					})
 			);
 
+		// Instantiate scope lines toggle setting
+		new Setting(containerEl)
+			.setName("Scope Lines")
+			.setDesc(
+				"If enabled, pseudocode blocks will have lines indicating the scope of the block."
+			)
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.jsSettings.scopeLines)
+					.onChange(async (value) => {
+						this.plugin.settings.jsSettings.scopeLines = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
 		containerEl.createEl("h2", { text: "Preamble Settings" });
 
 		// Instantiate Preamble Path setting
@@ -132,7 +144,9 @@ export class PseudocodeSettingTab extends PluginSettingTab {
 		// Instantiate Preamble Load Sign setting
 		new Setting(containerEl)
 			.setName("Preamble Loaded Notice")
-			.setDesc("Whether to show a notice everytime the preamble is loaded.")
+			.setDesc(
+				"Whether to show a notice everytime the preamble is loaded."
+			)
 			.addToggle((toggle) =>
 				toggle
 					.setValue(this.plugin.settings.preambleLoadedNotice)

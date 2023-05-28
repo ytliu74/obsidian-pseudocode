@@ -1425,6 +1425,16 @@ If your plugin does not need CSS, delete this file.
 	text-indent: 0;
 }
 
+/* scope lines support */
+.ps-root .ps-algorithmic.with-scopelines div.ps-block {
+    border-left-style: solid;
+    border-left-width: 0.1em;
+    padding-left: 0.6em;
+}
+.ps-root .ps-algorithmic.with-scopelines > div.ps-block {
+    border-left: none;
+}
+
 .error-message {
 	font-family: var(--font-monospace);
 	font-size: 0.875rem;
