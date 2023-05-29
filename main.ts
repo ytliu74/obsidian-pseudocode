@@ -32,11 +32,14 @@ export default class PseudocodePlugin extends Plugin {
 		// find all $ enclosements in source, and add the preamble.
 		// TODO: Might be able to optimize.
 		const mathRegex = /\$(.*?)\$/g;
-		const withPreamble = source.replace(mathRegex, (match, group1) => {
-			return "$" + this.preamble + group1 + "$";
+		const withPreamble = source.replace(mathRegex, (_, group1) => {
+			return `$${this.preamble}${group1}$`;
 		});
 
-		const preEl = blockDiv.createEl("pre", { cls: "code", text: withPreamble });
+		const preEl = blockDiv.createEl("pre", {
+			cls: "code",
+			text: withPreamble,
+		});
 
 		try {
 			pseudocode.renderElement(preEl, this.settings.jsSettings);
