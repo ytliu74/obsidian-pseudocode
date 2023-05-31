@@ -57,7 +57,11 @@ export default class PseudocodePlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings();
-		await this.loadPreamble();
+
+		if (this.settings.preambleEnabled) {
+			console.log("Preamble is enabled.");
+			await this.loadPreamble();
+		}
 
 		this.registerMarkdownCodeBlockProcessor(
 			BLOCK_NAME,

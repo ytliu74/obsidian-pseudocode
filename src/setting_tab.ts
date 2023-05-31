@@ -125,6 +125,21 @@ export class PseudocodeSettingTab extends PluginSettingTab {
 
 		containerEl.createEl("h2", { text: "Preamble Settings" });
 
+		// Instantiate Preamble Enabled setting
+		new Setting(containerEl)
+			.setName("Preamble Enabled")
+			.setDesc(
+				"Whether to load the preamble file. Please reload the plugin for this setting to take effect."
+			)
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.preambleEnabled)
+					.onChange(async (value) => {
+						this.plugin.settings.preambleEnabled = value;
+						await this.plugin.saveSettings();
+					})
+			);
+
 		// Instantiate Preamble Path setting
 		new Setting(containerEl)
 			.setName("Preamble Path")
