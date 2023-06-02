@@ -18,7 +18,7 @@ import * as pseudocode from "pseudocode";
 
 export default class PseudocodePlugin extends Plugin {
 	settings: PseudocodeSettings;
-	preamble: string;
+	preamble: string = "";
 
 	async pseudocodeHandler(
 		source: string,
