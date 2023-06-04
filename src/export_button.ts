@@ -2,7 +2,10 @@ const BUTTON_INFO = "Export to clipboard";
 const BUTTON_EXPORTED = "Exported!";
 const BUTTON_FAILED = "Failed to export";
 
+import PseudocodePlugin from "main";
+
 export function createExportButton(
+	parentPlugin: PseudocodePlugin,
 	parentDiv: HTMLDivElement,
 	blockContent: string
 ) {
@@ -14,10 +17,10 @@ export function createExportButton(
 		if (blockContent !== null) {
 			const exportContent =
 				"\\documentclass{article}\n" +
-				MACROS +
+				macros(parentPlugin) +
 				"\n" +
 				"\\begin{document}\n" +
-				blockContent +
+				processBlock(blockContent, parentPlugin) +
 				"\n\\end{document}";
 
 			navigator.clipboard
@@ -41,19 +44,40 @@ export function createExportButton(
 	});
 }
 
-const MACROS =
-	"\\usepackage{algorithm}\n" +
-	"\\usepackage{algpseudocode}\n" +
-	"\n" +
-	"\\newcommand{\\And}{\\textbf{and~}}\n" +
-	"\\newcommand{\\Or}{\\textbf{or~}}\n" +
-	"\\newcommand{\\Xor}{\\textbf{xor~}}\n" +
-	"\\newcommand{\\Not}{\\textbf{not~}}\n" +
-	"\\newcommand{\\To}{\\textbf{to~}}\n" +
-	"\\newcommand{\\DownTo}{\\textbf{downto~}}\n" +
-	"\\newcommand{\\True}{\\textbf{true~}}\n" +
-	"\\newcommand{\\False}{\\textbf{false~}}\n" +
-	"\\newcommand{\\Input}{\\item[\\textbf{Input:}]}\n" +
-	"\\newcommand{\\Output}{\\item[\\textbf{Output:}]}\n" +
-	"\\renewcommand{\\Return}{\\State \\textbf{return~}}\n" +
-	"\\newcommand{\\Print}{\\State \\textbf{print~}}\n";
+const macros = (parentPlugin: PseudocodePlugin): string => {
+	const noEnd = parentPlugin.settings.jsSettings.noEnd;
+	const scopeLines = parentPlugin.settings.jsSettings.scopeLines;
+
+	return `
+\\usepackage{algorithm}
+\\usepackage[noEnd=${noEnd},indLines=${scopeLines}]{algpseudocodex}
+
+\\newcommand{\\And}{\\textbf{and~}}
+\\newcommand{\\Or}{\\textbf{or~}}
+\\newcommand{\\Xor}{\\textbf{xor~}}
+\\newcommand{\\Not}{\\textbf{not~}}
+\\newcommand{\\To}{\\textbf{to~}}
+\\newcommand{\\DownTo}{\\textbf{downto~}}
+\\newcommand{\\True}{\\textbf{true~}}
+\\newcommand{\\False}{\\textbf{false~}}
+\\newcommand{\\Input}{\\item[\\textbf{Input:}]}
+\\renewcommand{\\Output}{\\item[\\textbf{Output:}]}
+\\newcommand{\\Print}{\\State \\textbf{print~}}
+\\renewcommand{\\Return}{\\State \\textbf{return~}}
+`;
+};
+
+const processBlock = (
+	block: string,
+	parentPlugin: PseudocodePlugin
+): string => {
+	if (parentPlugin.settings.jsSettings.lineNumber)
+		// Replace "\begin{algorithmic}" with "\begin{algorithmic}[1]"
+		block = block.replace(
+			"\\begin{algorithmic}",
+			"\\begin{algorithmic}[1]"
+		);
+	else;
+
+	return block;
+};

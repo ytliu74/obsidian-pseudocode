@@ -43,7 +43,7 @@ export default class PseudocodePlugin extends Plugin {
 
 		try {
 			pseudocode.renderElement(preEl, this.settings.jsSettings);
-			createExportButton(blockDiv, source);
+			createExportButton(this, blockDiv, source);
 		} catch (error) {
 			console.log(error);
 			const errorSpan = blockDiv.createEl("span", {
