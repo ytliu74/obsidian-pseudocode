@@ -63,7 +63,7 @@ Here is an example:
     ```
 ```
 
-This will be rendered as:
+This will be rendered as (to render line number, you need to toggle it in setting tab):
 
 <div align="center">
 <img src="assets/example.png" alt="example" width="70%">
