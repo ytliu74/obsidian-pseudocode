@@ -4,23 +4,21 @@ import {
 } from "./latex_translator";
 
 export function extractInlineMacros(source: string): [string, string] {
-	const lines = source.split("\n");
+  const sourceLines = source.split("\n");
+  const macroStartIndex = sourceLines.findIndex(line => line.includes("\\begin{algorithm}"));
 
-	let i: number;
-	for (i = 0; i < lines.length; i++) {
-		if (lines[i].includes("\\begin{algorithm}")) break;
-	}
+  const macroLines = sourceLines.slice(0, macroStartIndex).join("\n");
+  const nonMacroLines = sourceLines.slice(macroStartIndex).join("\n");
 
-	const macroLines = lines.slice(0, i).join("\n");
-	const nonMacroLines = lines.slice(i).join("\n");
+  let inlineMacros = "";
 
-	let inlineMacros = "";
-	try {
-		const translated = translateUnsupportedMacrosPerf(macroLines);
-		inlineMacros = checkTranslatedMacros(translated);
-	} catch (error) {
-		console.error(error);
-	}
+  try {
+    const translated = translateUnsupportedMacrosPerf(macroLines);
+    inlineMacros = checkTranslatedMacros(translated);
+  } catch (error) {
 
-	return [inlineMacros, nonMacroLines];
+    console.error(error);
+  }
+
+  return [inlineMacros, nonMacroLines];
 }
