@@ -13,6 +13,7 @@ import {
 	checkTranslatedMacros,
 } from "src/latex_translator";
 import { createExportButton } from "src/export_button";
+import { extractInlineMacros } from "src/inline_macro";
 
 import * as pseudocode from "pseudocode";
 
@@ -29,11 +30,15 @@ export default class PseudocodePlugin extends Plugin {
 		const blockWidth = this.settings.blockSize;
 		blockDiv.style.width = `${blockWidth}em`;
 
+		// Extract inline macros
+		const [inlineMacros, nonMacroLines] = extractInlineMacros(source);
+		const allPreamble = this.preamble + inlineMacros;
+
 		// find all $ enclosements in source, and add the preamble.
 		// TODO: Might be able to optimize.
 		const mathRegex = /\$(.*?)\$/g;
-		const withPreamble = source.replace(mathRegex, (_, group1) => {
-			return `$${this.preamble}${group1}$`;
+		const withPreamble = nonMacroLines.replace(mathRegex, (_, group1) => {
+			return `$${allPreamble}${group1}$`;
 		});
 
 		const preEl = blockDiv.createEl("pre", {
