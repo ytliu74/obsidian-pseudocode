@@ -5,6 +5,9 @@
   - [Usage](#usage)
     - [Basic](#basic)
     - [Preamble style customization](#preamble-style-customization)
+      - [Use a `.sty` file](#use-a-sty-file)
+      - [Use in-block preamble](#use-in-block-preamble)
+      - [Supported macros](#supported-macros)
     - [Export to a compilable LaTeX file](#export-to-a-compilable-latex-file)
   - [Installation](#installation)
   - [Credits](#credits)
@@ -17,7 +20,7 @@ This is a plugin for [Obsidian](https://obsidian.md/) that allows you to render 
 - Print quality: The HTML output produced by the plugin is (almost) identical with the pretty algorithms printed on publications that are typeset by LaTeX.
 - Math formula support: Inserting math formulas in the pseudocode is as easy as LaTeX. Just enclose math expression in `$...$` or `\(...\)`.
 - Auto-completion inside `pseudo` code block. (Release 1.1.0)
-- [Preamble style (macros) customization.](#preamble-style-customization) (Release 1.2.0)
+- [Preamble style (macros) customization.](#preamble-style-customization) (Release 1.2.0 & 1.5.0)
 - [Export a LaTeX file that can be compiled, including any required additional macros.](#export-to-a-compilable-latex-file) (Release 1.3.0)
 
 ### Future Features
@@ -71,13 +74,24 @@ This will be rendered as (to render line number, you need to toggle it in settin
 
 ### Preamble style customization
 
-You can use a `.sty` file (actually the suffix does not matter) to customize with some macros. The plugin will locate the file according to the setting. The default path is `preamble.sty`. Currently supported macros can be found at [this link](https://katex.org/docs/supported.html#macros) and below(might not be fully supported):
+#### Use a `.sty` file
+
+You can use a `.sty` file (actually the suffix does not matter) to customize with some macros. The plugin will locate the file according to the setting. The default path is `preamble.sty`. 
+
+Please reload the plugin after you change the preamble file.
+
+#### Use in-block preamble
+
+You can simply write your own macros in the pseudocode block before `\begin{algorithm}`. These macros will only be applicable within this specific block.
+
+#### Supported macros
+
+Currently supported macros can be found at [this link](https://katex.org/docs/supported.html#macros) and below(might not be fully supported):
 
 1. `\DeclarePairedDelimiter`
 2. `\DeclareMathOperator*`
 3. `\DeclareMathOperator`
 
-Please reload the plugin after you change the preamble file.
 
 ### Export to a compilable LaTeX file
 
