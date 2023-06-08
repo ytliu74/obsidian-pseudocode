@@ -7,6 +7,7 @@ import PseudocodePlugin from "main";
 export function createExportButton(
 	parentPlugin: PseudocodePlugin,
 	parentDiv: HTMLDivElement,
+	inlineMacros: string,
 	blockContent: string
 ) {
 	const button = parentDiv.createEl("button");
@@ -17,7 +18,7 @@ export function createExportButton(
 		if (blockContent !== null) {
 			const exportContent =
 				"\\documentclass{article}\n" +
-				macros(parentPlugin) +
+				macros(parentPlugin, inlineMacros) +
 				"\n" +
 				"\\begin{document}\n" +
 				processBlock(blockContent, parentPlugin) +
@@ -44,9 +45,12 @@ export function createExportButton(
 	});
 }
 
-const macros = (parentPlugin: PseudocodePlugin): string => {
+const macros = (parentPlugin: PseudocodePlugin, inlineMacros: string): string => {
 	const noEnd = parentPlugin.settings.jsSettings.noEnd;
 	const scopeLines = parentPlugin.settings.jsSettings.scopeLines;
+
+	// Split inline macros into lines and remove heading or trailing spaces
+	const inlineMacrosLine = inlineMacros.split("\n").map(line => line.trim());
 
 	return `
 \\usepackage{algorithm}
@@ -64,6 +68,9 @@ const macros = (parentPlugin: PseudocodePlugin): string => {
 \\renewcommand{\\Output}{\\item[\\textbf{Output:}]}
 \\newcommand{\\Print}{\\State \\textbf{print~}}
 \\renewcommand{\\Return}{\\State \\textbf{return~}}
+
+\\usepackage{amsmath}
+${inlineMacrosLine}
 `;
 };
 
