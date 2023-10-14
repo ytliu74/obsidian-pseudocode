@@ -1463,3 +1463,9 @@ If your plugin does not need CSS, delete this file.
 .pseudocode-block:hover .hover-button {
 	display: block;
 }
+
+.ps-root {
+	background-color: white;
+	opacity: 1;
+	color: black;
+}
