@@ -111,6 +111,7 @@ export class PseudocodeSuggestor extends EditorSuggest<string> {
 		"\\For{}",
 		"\\EndFor",
 		"\\If{}",
+		"\\Else",
 		"\\Elif{}",
 		"\\EndIf",
 		"\\While{}",
