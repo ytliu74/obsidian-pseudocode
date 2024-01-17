@@ -117,6 +117,8 @@ export class PseudocodeSuggestor extends EditorSuggest<string> {
 		"\\While{}",
 		"\\EndWhile",
 		"\\Repeat",
+		"\\Continue",
+		"\\Break",
 		"\\Until{}",
 		"\\Comment{}",
 		"\\{",
