@@ -81,7 +81,16 @@ export class PseudocodeSuggestor extends EditorSuggest<string> {
 			const start = this.context.start;
 			const end = editor.getCursor();
 
-			editor.replaceRange(suggestion, start, end);
+			const pairSuggestion = this.pairSuggestions[suggestion];
+			let insertText = suggestion;
+			if (pairSuggestion) {
+				const line = editor.getLine(start.line);
+				const indentMatch = line.match(/^(\s*)/)?.[0] ?? "";
+				const indent = indentMatch.replace(/\t/g, "    "); // replace each tab with four spaces
+				insertText += "\n" + indent + pairSuggestion;
+			}
+
+			editor.replaceRange(insertText, start, end);
 			const newCursor = end;
 			newCursor.ch = start.ch + suggestion.length;
 
@@ -90,6 +99,17 @@ export class PseudocodeSuggestor extends EditorSuggest<string> {
 			this.close();
 		}
 	}
+
+	private pairSuggestions: Record<string, string> = {
+		"\\begin{algorithmic}": "\\end{algorithmic}",
+		"\\begin{algorithm}": "\\end{algorithm}",
+		"\\Procedure{}{}": "\\EndProcedure",
+		"\\Function{}{}": "\\EndFunction",
+		"\\For{}": "\\EndFor",
+		"\\If{}": "\\EndIf",
+		"\\While{}": "\\EndWhile",
+		// Add more pairs as needed
+	};
 
 	private pseudocodeKeywords: string[] = [
 		"\\begin{algorithmic}",
