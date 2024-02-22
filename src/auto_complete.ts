@@ -106,6 +106,7 @@ export class PseudocodeSuggestor extends EditorSuggest<string> {
 		"\\Procedure{}{}": "\\EndProcedure",
 		"\\Function{}{}": "\\EndFunction",
 		"\\For{}": "\\EndFor",
+		"\\ForAll{}": "\\EndFor",
 		"\\If{}": "\\EndIf",
 		"\\While{}": "\\EndWhile",
 		// Add more pairs as needed
@@ -129,6 +130,7 @@ export class PseudocodeSuggestor extends EditorSuggest<string> {
 		"\\Return",
 		"\\Print",
 		"\\For{}",
+		"\\ForAll{}",
 		"\\EndFor",
 		"\\If{}",
 		"\\Else",
