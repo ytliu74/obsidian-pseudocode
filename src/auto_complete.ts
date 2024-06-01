@@ -109,6 +109,7 @@ export class PseudocodeSuggestor extends EditorSuggest<string> {
 		"\\ForAll{}": "\\EndFor",
 		"\\If{}": "\\EndIf",
 		"\\While{}": "\\EndWhile",
+		"\\Repeat": "\\Until{}",
 		// Add more pairs as needed
 	};
 
