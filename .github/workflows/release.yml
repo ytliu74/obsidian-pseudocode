@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          npm config set registry http://registry.npmjs.org/
+          npm config set registry https://registry.npmjs.org/
           npm install
 
       - name: Build
