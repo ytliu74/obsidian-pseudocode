@@ -39,6 +39,20 @@ function setTheme() {
 		htmlElement.style.backgroundColor = backgroundValue;
 		htmlElement.style.opacity = '1';
 		htmlElement.style.color = fontValue;
+
+		// Change border colors for .ps-algorithm and .ps-algorithm.with-caption > .ps-line:first-child
+		const algorithmElements = htmlElement.querySelectorAll('.ps-algorithm');
+		algorithmElements.forEach(algElement => {
+			const algHtmlElement = algElement as HTMLElement;
+			algHtmlElement.style.borderTopColor = fontValue;
+			algHtmlElement.style.borderBottomColor = fontValue;
+		});
+
+		const lineElements = htmlElement.querySelectorAll('.ps-algorithm.with-caption > .ps-line:first-child');
+		lineElements.forEach(lineElement => {
+			const lineHtmlElement = lineElement as HTMLElement;
+			lineHtmlElement.style.borderBottomColor = fontValue;
+		});
 	});
 }
 
