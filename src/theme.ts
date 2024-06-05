@@ -1,0 +1,55 @@
+// Reference: https://forum.obsidian.md/t/obsidian-publish-api-how-to-track-changing-theme/73637/4
+
+export const themeObserver = new MutationObserver(function (mutations) {
+	mutations.forEach(function (mutation) {
+		const target = mutation.target as HTMLElement;
+		if (
+			// dark -> dark & light -> light
+			mutation.oldValue?.contains('theme-dark') &&
+			!mutation.oldValue?.contains('theme-light') && // key line, avoid calling twice
+			target.classList.value.contains('theme-light')
+		) {
+			console.log('light theme detected');
+			setTheme();
+		} else if (
+			// light -> empty -> dark
+			mutation.oldValue?.contains('theme-light') && // key line, avoid calling twice
+			!mutation.oldValue?.contains('theme-dark') &&
+			target.classList.value.contains('theme-dark')
+		) {
+			console.log('dark theme detected');
+			setTheme();
+		}
+	});
+});
+
+function setTheme() {
+	const bodyElement = document.body;
+	const backgroundValue = getComputedStyle(bodyElement).getPropertyValue('--background-primary').trim();
+    const fontValue = getComputedStyle(bodyElement).getPropertyValue('--text-normal').trim();
+	console.log(getComputedStyle(document.documentElement));
+	console.log(backgroundValue, fontValue);
+
+	// Select all elements with the class 'ps-root'
+	const psRootElements = document.querySelectorAll('.ps-root');
+
+	// Loop through each element and modify the CSS properties
+	psRootElements.forEach(element => {
+		const htmlElement = element as HTMLElement;
+		htmlElement.style.backgroundColor = backgroundValue;
+		htmlElement.style.opacity = '1';
+		htmlElement.style.color = fontValue;
+	});
+}
+
+export const setObserver = () => {
+	themeObserver.observe(document.body, {
+		attributes: true,
+		attributeOldValue: true,
+		attributeFilter: ['class'],
+	});
+};
+
+export const detachObserver = () => {
+	themeObserver.disconnect();
+};

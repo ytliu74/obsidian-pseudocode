@@ -14,6 +14,7 @@ import {
 } from "src/latex_translator";
 import { createExportButton } from "src/export_button";
 import { extractInlineMacros } from "src/inline_macro";
+import { setObserver, detachObserver } from "src/theme";
 
 import * as pseudocode from "pseudocode";
 
@@ -63,6 +64,8 @@ export default class PseudocodePlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
+		setObserver();
+
 		if (this.settings.preambleEnabled) {
 			console.log("Preamble is enabled.");
 			await this.loadPreamble();
@@ -89,7 +92,9 @@ export default class PseudocodePlugin extends Plugin {
 		});
 	}
 
-	onunload() {}
+	onunload() {
+		detachObserver();
+	}
 
 	async loadPreamble() {
 		try {
