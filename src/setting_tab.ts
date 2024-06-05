@@ -1,4 +1,5 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
+import { setObserver, detachObserver } from "./theme";
 
 import PseudocodePlugin from "main";
 
@@ -32,6 +33,24 @@ export class PseudocodeSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.blockSize.toString())
 					.onChange(async (value) => {
 						this.plugin.settings.blockSize = Number(value);
+						await this.plugin.saveSettings();
+					})
+			);
+
+		// Instantiate Follow System Theme setting
+		new Setting(containerEl)
+			.setName("Follow System Theme")
+			.setDesc("Whether to follow the system theme.")
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.followSystemTheme)
+					.onChange(async (value) => {
+						this.plugin.settings.followSystemTheme = value;
+						if (value) {
+							setObserver();
+						} else {
+							detachObserver();
+						}
 						await this.plugin.saveSettings();
 					})
 			);

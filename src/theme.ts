@@ -5,51 +5,59 @@ export const themeObserver = new MutationObserver(function (mutations) {
 		const target = mutation.target as HTMLElement;
 		if (
 			// dark -> dark & light -> light
-			mutation.oldValue?.contains('theme-dark') &&
-			!mutation.oldValue?.contains('theme-light') && // key line, avoid calling twice
-			target.classList.value.contains('theme-light')
+			mutation.oldValue?.contains("theme-dark") &&
+			!mutation.oldValue?.contains("theme-light") && // key line, avoid calling twice
+			target.classList.value.contains("theme-light")
 		) {
-			console.log('light theme detected');
-			setTheme();
+			console.log("light theme detected");
+			setPseudocodeTheme();
 		} else if (
 			// light -> empty -> dark
-			mutation.oldValue?.contains('theme-light') && // key line, avoid calling twice
-			!mutation.oldValue?.contains('theme-dark') &&
-			target.classList.value.contains('theme-dark')
+			mutation.oldValue?.contains("theme-light") && // key line, avoid calling twice
+			!mutation.oldValue?.contains("theme-dark") &&
+			target.classList.value.contains("theme-dark")
 		) {
-			console.log('dark theme detected');
-			setTheme();
+			console.log("dark theme detected");
+			setPseudocodeTheme();
 		}
 	});
 });
 
-function setTheme() {
+export function setPseudocodeTheme(psBlock?: Element) {
+
 	const bodyElement = document.body;
-	const backgroundValue = getComputedStyle(bodyElement).getPropertyValue('--background-primary').trim();
-    const fontValue = getComputedStyle(bodyElement).getPropertyValue('--text-normal').trim();
-	console.log(getComputedStyle(document.documentElement));
+	const backgroundValue = getComputedStyle(bodyElement)
+		.getPropertyValue("--background-primary")
+		.trim();
+	const fontValue = getComputedStyle(bodyElement)
+		.getPropertyValue("--text-normal")
+		.trim();
 	console.log(backgroundValue, fontValue);
 
-	// Select all elements with the class 'ps-root'
-	const psRootElements = document.querySelectorAll('.ps-root');
+	const psRootElements = psBlock
+		? psBlock.querySelectorAll(".ps-root")
+		: document.querySelectorAll(".ps-root");
+	// console.log(psRootElements);
 
 	// Loop through each element and modify the CSS properties
-	psRootElements.forEach(element => {
+	psRootElements.forEach((element) => {
 		const htmlElement = element as HTMLElement;
 		htmlElement.style.backgroundColor = backgroundValue;
-		htmlElement.style.opacity = '1';
+		htmlElement.style.opacity = "1";
 		htmlElement.style.color = fontValue;
 
 		// Change border colors for .ps-algorithm and .ps-algorithm.with-caption > .ps-line:first-child
-		const algorithmElements = htmlElement.querySelectorAll('.ps-algorithm');
-		algorithmElements.forEach(algElement => {
+		const algorithmElements = htmlElement.querySelectorAll(".ps-algorithm");
+		algorithmElements.forEach((algElement) => {
 			const algHtmlElement = algElement as HTMLElement;
 			algHtmlElement.style.borderTopColor = fontValue;
 			algHtmlElement.style.borderBottomColor = fontValue;
 		});
 
-		const lineElements = htmlElement.querySelectorAll('.ps-algorithm.with-caption > .ps-line:first-child');
-		lineElements.forEach(lineElement => {
+		const lineElements = htmlElement.querySelectorAll(
+			".ps-algorithm.with-caption > .ps-line:first-child"
+		);
+		lineElements.forEach((lineElement) => {
 			const lineHtmlElement = lineElement as HTMLElement;
 			lineHtmlElement.style.borderBottomColor = fontValue;
 		});
@@ -60,7 +68,7 @@ export const setObserver = () => {
 	themeObserver.observe(document.body, {
 		attributes: true,
 		attributeOldValue: true,
-		attributeFilter: ['class'],
+		attributeFilter: ["class"],
 	});
 };
 

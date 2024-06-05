@@ -15,6 +15,7 @@ export interface PseudocodeSettings {
 	preambleEnabled: boolean;
 	preamblePath: string;
 	preambleLoadedNotice: boolean;
+	followSystemTheme: boolean;
 	jsSettings: PseudocodeJsSettings;
 }
 
@@ -23,6 +24,7 @@ export const DEFAULT_SETTINGS: PseudocodeSettings = {
 	preambleEnabled: false,
 	preamblePath: "preamble.sty",
 	preambleLoadedNotice: false,
+	followSystemTheme: false,
 	jsSettings: {
 		indentSize: "1.2em",
 		commentDelimiter: "//",

@@ -14,7 +14,7 @@ import {
 } from "src/latex_translator";
 import { createExportButton } from "src/export_button";
 import { extractInlineMacros } from "src/inline_macro";
-import { setObserver, detachObserver } from "src/theme";
+import { setObserver, detachObserver, setPseudocodeTheme } from "src/theme";
 
 import * as pseudocode from "pseudocode";
 
@@ -58,6 +58,11 @@ export default class PseudocodePlugin extends Plugin {
 			errorSpan.classList.add("error-message");
 			blockDiv.empty();
 			blockDiv.appendChild(errorSpan);
+		}
+
+		// Set the pseudocode theme
+		if (this.settings.followSystemTheme) {
+			setPseudocodeTheme(blockDiv);
 		}
 	}
 
