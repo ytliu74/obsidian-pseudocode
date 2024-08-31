@@ -1,7 +1,7 @@
 {
 	"id": "pseudocode-in-obs",
 	"name": "Pseudocode",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"minAppVersion": "0.15.0",
 	"description": "This is an obsidian plugin that helps to render a LaTeX-style pseudocode inside a code block.",
 	"author": "Yaotian Liu",
