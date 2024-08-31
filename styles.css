@@ -1399,12 +1399,22 @@ If your plugin does not need CSS, delete this file.
 	text-transform: none;
 }
 
-.ps-root .ps-comment {
-	font-family: KaTeX_Main, "Times New Roman", Times, serif;
-	font-weight: 400;
-	font-variant: normal;
-	font-style: normal;
-	text-transform: none;
+.ps-root {
+        font-family: KaTeX_Main, "Times New Roman", Times, serif;
+        font-weight: 400;
+        font-variant: normal;
+        font-style: normal;
+        text-transform: none;
+}
+
+.ps-comment {
+        font-family: KaTeX_Main, "Times New Roman", Times, serif;
+        font-weight: 400;
+        font-variant: normal;
+        font-style: italic;
+        text-transform: none;
+        opacity: 70%;
+        float: right;
 }
 
 .ps-root .ps-linenum {
