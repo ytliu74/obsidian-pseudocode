@@ -31,13 +31,13 @@ export default class PseudocodePlugin extends Plugin {
 		const blockWidth = this.settings.blockSize;
 		blockDiv.style.width = `${blockWidth}em`;
 		blockDiv.addEventListener("click", (event) => {
-            const target = (event.target as HTMLElement)!;
-            if(target.tagName !== 'BUTTON')
+            const target = (event.target as HTMLElement | null);
+            if(target && target.tagName !== 'BUTTON')
                 (target
-                    .closest('.pseudocode-block')!
-                    .parentElement!.parentElement!
-                    .querySelector('.edit-block-button') as HTMLElement)!
-                    .click();
+                    .closest('.pseudocode-block')
+                    ?.parentElement?.parentElement
+                    ?.querySelector('.edit-block-button') as HTMLElement | null)
+                    ?.click();
 		});
 
 		// Extract inline macros
