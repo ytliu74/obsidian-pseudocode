@@ -29,7 +29,10 @@ export default class PseudocodePlugin extends Plugin {
 	): Promise<any> {
 		const blockDiv = el.createDiv({ cls: "pseudocode-block" });
 		const blockWidth = this.settings.blockSize;
-		blockDiv.style.width = `${blockWidth}em`;
+		blockDiv.style.width = `${blockWidth}em`;;
+		blockDiv.addEventListener("click", (event) => {
+			((event.target as HTMLElement).closest('.pseudocode-block')!.parentElement!.parentElement!.querySelector('.edit-block-button') as HTMLElement)!.click();
+		});
 
 		// Extract inline macros
 		const [inlineMacros, nonMacroLines] = extractInlineMacros(source);
