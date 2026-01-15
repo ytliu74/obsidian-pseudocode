@@ -1,6 +1,6 @@
 {
 	"name": "pseudocode-in-obs",
-	"version": "1.6.3",
+	"version": "1.6.4",
 	"description": "This is an obsidian plugin that helps to render a LaTeX-style pseudocode inside a code block.",
 	"main": "main.js",
 	"scripts": {
@@ -12,6 +12,7 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/katex": "0.11.1",
 		"@types/node": "^16.11.6",
 		"@typescript-eslint/eslint-plugin": "5.29.0",
 		"@typescript-eslint/parser": "5.29.0",
@@ -19,11 +20,10 @@
 		"esbuild": "0.17.3",
 		"obsidian": "latest",
 		"tslib": "2.4.0",
-		"typescript": "4.7.4",
-		"@types/katex": "0.11.1"
+		"typescript": "4.7.4"
 	},
 	"dependencies": {
-		"pseudocode": "ytliu74/pseudocode.js#master",
-		"katex": "0.11.1"
+		"katex": "0.11.1",
+		"pseudocode": "github:ytliu74/pseudocode.js#master"
 	}
 }
