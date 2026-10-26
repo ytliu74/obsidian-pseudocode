@@ -25,7 +25,6 @@ npm run version
 - `main.ts`: Core plugin class (`PseudocodePlugin`)
   - Registers markdown code block processor for `pseudo` language
   - Manages settings and preamble loading
-  - Handles theme observer lifecycle
 
 ### Core Processing Flow
 1. User creates a code block with `pseudo` language specifier
@@ -34,7 +33,7 @@ npm run version
    - Combines with global preamble if enabled
    - Injects preamble into all math expressions (`$...$`)
    - Renders using pseudocode.js library
-   - Adds export button and applies theme
+   - Adds export button
 
 ### Key Modules
 
@@ -52,13 +51,8 @@ npm run version
 - Generates compilable LaTeX document with required packages (algorithm, algpseudocodex, amsmath)
 - Includes both global and inline macros
 
-**src/theme.ts**
-- MutationObserver watches document.body for theme changes
-- Applies Obsidian theme colors (--background-primary, --text-normal) to pseudocode blocks
-- Updates .ps-root, .ps-algorithm, and border colors dynamically
-
 **src/setting_tab.ts**
-- UI for plugin settings (block size, preamble path, line numbers, theme following, etc.)
+- UI for plugin settings (block size, preamble path, line numbers, etc.)
 
 **src/auto_complete.ts**
 - EditorSuggestor for autocomplete within `pseudo` code blocks
@@ -78,9 +72,9 @@ npm run version
 - Must reload plugin after changing global preamble file
 
 ### Theme Integration
-- When `followSystemTheme` is enabled, plugin observes Obsidian theme changes
-- CSS custom properties are read from document.body and applied to rendered pseudocode
-- Observer must be detached on plugin unload to prevent memory leaks
+- `.ps-root` uses Obsidian CSS variables `--background-primary` and `--text-normal`, so theme changes apply automatically without JavaScript
+- Algorithm borders use `currentColor` to match the active theme
+- Obsidian PDF export switches the print window to the light theme; `@media print` also forces pseudocode blocks to a white background with black text
 
 ### Error Handling
 - Pseudocode rendering errors display in-block with ✖ symbol

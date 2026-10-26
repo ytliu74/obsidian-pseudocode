@@ -14,7 +14,6 @@ import {
 } from "src/latex_translator";
 import { createExportButton } from "src/export_button";
 import { extractInlineMacros } from "src/inline_macro";
-import { setObserver, detachObserver, setPseudocodeTheme } from "src/theme";
 
 import * as pseudocode from "pseudocode";
 
@@ -68,17 +67,10 @@ export default class PseudocodePlugin extends Plugin {
 			blockDiv.empty();
 			blockDiv.appendChild(errorSpan);
 		}
-
-		// Set the pseudocode theme
-		if (this.settings.followSystemTheme) {
-			setPseudocodeTheme(blockDiv);
-		}
 	}
 
 	async onload() {
 		await this.loadSettings();
-
-		setObserver();
 
 		if (this.settings.preambleEnabled) {
 			console.log("Preamble is enabled.");
@@ -104,10 +96,6 @@ export default class PseudocodePlugin extends Plugin {
 				editor.replaceSelection(PseudocodeBlockInit);
 			},
 		});
-	}
-
-	onunload() {
-		detachObserver();
 	}
 
 	async loadPreamble() {
@@ -149,11 +137,9 @@ export default class PseudocodePlugin extends Plugin {
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign(
-			{},
-			DEFAULT_SETTINGS,
-			await this.loadData()
-		);
+		const data = (await this.loadData()) ?? {};
+		delete data.followSystemTheme;
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
 	}
 
 	async saveSettings() {
